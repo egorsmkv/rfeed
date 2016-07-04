@@ -4,7 +4,7 @@ from rfeed import *
 
 class BaseTestCase(unittest.TestCase):
 
-    def _element(self, element, value, attributes = {}):
+    def _element(self, element, value):
         return '<' + element + '>' + value + '</' + element + '>'
 
 class SerializableTestCase(BaseTestCase):
