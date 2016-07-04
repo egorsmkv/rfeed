@@ -1,12 +1,12 @@
+import itertools
+import sys
+from xml.sax import saxutils
+
 __name__ = "rfeed"
 __version__ = (1, 0, 0)
 __author__ = "Santiago L. Valdarrama - https://blog.svpino.com"
 _generator = __name__ + " v" + ".".join(map(str, __version__))
 _docs = "https://github.com/svpino/rfeed/blob/master/README.md"
-
-import itertools
-import sys
-from xml.sax import saxutils
 
 if sys.version_info[0] == 3:
 	basestring = str
