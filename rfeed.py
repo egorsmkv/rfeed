@@ -130,7 +130,8 @@ class Category(Serializable):
 
         Serializable.__init__(self)
 
-        if category is None: raise ElementRequiredError("category")
+        if category is None:
+            raise ElementRequiredError("category")
 
         self.category = category
         self.domain = domain
@@ -160,11 +161,16 @@ class Cloud(Serializable):
 
         Serializable.__init__(self)
 
-        if domain is None: raise ElementRequiredError("domain")
-        if port is None: raise ElementRequiredError("port")
-        if path is None: raise ElementRequiredError("path")
-        if registerProcedure is None: raise ElementRequiredError("registerProcedure")
-        if protocol is None: raise ElementRequiredError("protocol")
+        if domain is None:
+            raise ElementRequiredError("domain")
+        if port is None:
+            raise ElementRequiredError("port")
+        if path is None:
+            raise ElementRequiredError("path")
+        if registerProcedure is None:
+            raise ElementRequiredError("registerProcedure")
+        if protocol is None:
+            raise ElementRequiredError("protocol")
 
         self.domain = domain
         self.port = port
@@ -200,9 +206,12 @@ class Image(Serializable):
 
         Serializable.__init__(self)
 
-        if url is None: raise ElementRequiredError("url")
-        if title is None: raise ElementRequiredError("title")
-        if link is None: raise ElementRequiredError("link")
+        if url is None:
+            raise ElementRequiredError("url")
+        if title is None:
+            raise ElementRequiredError("title")
+        if link is None:
+            raise ElementRequiredError("link")
 
         self.url = url
         self.title = title
@@ -242,10 +251,14 @@ class TextInput(Serializable):
 
         Serializable.__init__(self)
 
-        if title is None: raise ElementRequiredError("title")
-        if description is None: raise ElementRequiredError("description")
-        if name is None: raise ElementRequiredError("name")
-        if link is None: raise ElementRequiredError("link")
+        if title is None:
+            raise ElementRequiredError("title")
+        if description is None:
+            raise ElementRequiredError("description")
+        if name is None:
+            raise ElementRequiredError("name")
+        if link is None:
+            raise ElementRequiredError("link")
 
         self.title = title
         self.description = description
@@ -278,7 +291,8 @@ class SkipHours(Serializable):
 
         Serializable.__init__(self)
 
-        if hours is None: raise ElementRequiredError("hours")
+        if hours is None:
+            raise ElementRequiredError("hours")
 
         self.hours = hours
 
@@ -308,7 +322,8 @@ class SkipDays(Serializable):
 
         Serializable.__init__(self)
 
-        if days is None: raise ElementRequiredError("days")
+        if days is None:
+            raise ElementRequiredError("days")
 
         self.days = days
 
@@ -340,9 +355,12 @@ class Enclosure(Serializable):
 
         Serializable.__init__(self)
 
-        if url is None: raise ElementRequiredError("url")
-        if length is None: raise ElementRequiredError("length")
-        if type is None: raise ElementRequiredError("type")
+        if url is None:
+            raise ElementRequiredError("url")
+        if length is None:
+            raise ElementRequiredError("length")
+        if type is None:
+            raise ElementRequiredError("type")
 
         self.url = url
         self.length = length
@@ -370,7 +388,8 @@ class Guid(Serializable):
 
         Serializable.__init__(self)
 
-        if guid is None: raise ElementRequiredError("guid")
+        if guid is None:
+            raise ElementRequiredError("guid")
 
         self.guid = guid
         self.isPermaLink = True if isPermaLink is None else isPermaLink
@@ -396,8 +415,10 @@ class Source(Serializable):
 
         Serializable.__init__(self)
 
-        if name is None: raise ElementRequiredError("name")
-        if url is None: raise ElementRequiredError("url")
+        if name is None:
+            raise ElementRequiredError("name")
+        if url is None:
+            raise ElementRequiredError("url")
 
         self.name = name
         self.url = url
@@ -424,8 +445,10 @@ class iTunesOwner(Serializable):
 
         Serializable.__init__(self)
 
-        if name is None: raise ElementRequiredError("name")
-        if email is None: raise ElementRequiredError("email")
+        if name is None:
+            raise ElementRequiredError("name")
+        if email is None:
+            raise ElementRequiredError("email")
 
         self.name = name
         self.email = email
@@ -454,7 +477,8 @@ class iTunesCategory(Serializable):
 
         Serializable.__init__(self)
 
-        if name is None: raise ElementRequiredError("name")
+        if name is None:
+            raise ElementRequiredError("name")
 
         self.name = name
         self.subcategory = subcategory
@@ -724,9 +748,12 @@ class Feed(Host):
 
         Host.__init__(self, extensions)
 
-        if title is None: raise ElementRequiredError("title")
-        if link is None: raise ElementRequiredError("link")
-        if description is None: raise ElementRequiredError("description")
+        if title is None:
+            raise ElementRequiredError("title")
+        if link is None:
+            raise ElementRequiredError("link")
+        if description is None:
+            raise ElementRequiredError("description")
 
         self.title = title
         self.link = link
