@@ -1,7 +1,5 @@
 import unittest
-import locale
 import datetime
-from time import gmtime, strftime
 from rfeed import *
 
 class BaseTestCase(unittest.TestCase):
