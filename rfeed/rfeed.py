@@ -3,7 +3,7 @@ import sys
 from xml.sax import saxutils
 
 __name__ = "rfeed"
-__version__ = (1, 1, 0)
+__version__ = (1, 1, 1)
 __author__ = "Santiago L. Valdarrama - https://blog.svpino.com"
 
 _generator = __name__ + " v" + ".".join(map(str, __version__))
