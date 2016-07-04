@@ -1,9 +1,10 @@
 from distutils.core import setup
+from rfeed.rfeed import __version__
 
 setup(
     name="rfeed",
     packages=['rfeed'],
-    version="1.0.0",
+    version=".".join(map(str, __version__)),
     description="Python RSS 2.0 Generator",
     author="Santiago L. Valdarrama",
     author_email="svpino@gmail.com",
