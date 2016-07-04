@@ -19,34 +19,43 @@ else:
 
 
 class Serializable:
-    """ Represents an object that can be serialized as part of the feed.
+    """
+    Represents an object that can be serialized as part of the feed.
     """
 
     def __init__(self):
-        """ Initializes the extension. In your implementation, make sure you always call this base class method
+        """
+        Initializes the extension. In your implementation, make sure you always call this base class method
         before adding your own code.
         """
+
         self.handler = None
 
     def publish(self, handler):
-        """ This method produces the XML representation of the object to be included in the feed. In your implementation,
+        """
+        This method produces the XML representation of the object to be included in the feed. In your implementation,
         make sure you always call this base class method before adding your own code.
         Keyword arguments:
-        handler -- An xml.sax.saxutils.XMLGenerator instance that you can use to create the XML representation of the object.
+        handler -- An xml.sax.saxutils.XMLGenerator instance that you can use to create
+        the XML representation of the object.
         """
+
         self.handler = handler
 
     def _date(self, date):
-        """ Converts a datetime into an RFC 2822 formatted date.
+        """
+        Converts a datetime into an RFC 2822 formatted date.
         Returns None if None is provided as an argument.
         Keyword arguments:
         date -- A datetime object in GMT format.
         """
 
-        # Alright, I admit it: this method looks hideous. The thing is that RFC 822 requires a specific format for dates, and strftime is
+        # Alright, I admit it: this method looks hideous. The thing is that RFC 822 requires a specific format
+        # for dates, and strftime is
         # locale dependent, so I can't use it to create the final date unless I force change the system locale.
         #
-        # I looked into that (locale.setlocale, then restore), but I got the feeling that I was doing things that I was going to regret later.
+        # I looked into that (locale.setlocale, then restore), but I got the feeling that I was doing things that I was
+        # going to regret later.
         # Maybe it's just me, but it doesn't feel right to force change the locale just to create a simple date.
         #
         # So, not having a better solution, I went ahead and used the original method from the PyRSS2Gen library.
@@ -75,10 +84,13 @@ class Serializable:
 
 class Extension(Serializable):
     def get_namespace(self):
-        """ Returns the namespace (if any) for this extension. The namespace information is added as an attribute in
-        the <rss> element of the feed. The return value should be a dictionary.
-        For example, here is the code for this method on the iTunes extension: return {"xmlns:itunes": "http://www.itunes.com/dtds/podcast-1.0.dtd"}
         """
+        Returns the namespace (if any) for this extension. The namespace information is added as an attribute in
+        the <rss> element of the feed. The return value should be a dictionary.
+        For example, here is the code for this method on the iTunes
+        extension: return {"xmlns:itunes": "http://www.itunes.com/dtds/podcast-1.0.dtd"}
+        """
+
         pass
 
 
@@ -92,9 +104,11 @@ class Host(Serializable):
         self.extensions = [] if extensions is None else extensions
 
     def add_extension(self, extension):
-        """ You can use this method to add new extensions to the feed.
+        """
+        You can use this method to add new extensions to the feed.
         To create new extensions, make sure you inherit from the Serializable or Extension class.
         """
+
         if not isinstance(extension, Serializable):
             raise TypeError("The provided extension should be a subclass of the Serializable class")
 
@@ -102,12 +116,14 @@ class Host(Serializable):
 
 
 class Category(Serializable):
-    """ A Category object specifies one or more categories that the channel or item belongs to.
+    """
+    A Category object specifies one or more categories that the channel or item belongs to.
     More information at http://cyber.law.harvard.edu/rss/rss.html#ltcategorygtSubelementOfLtitemgt
     """
 
     def __init__(self, category, domain=None):
-        """ Keyword arguments:
+        """
+        Keyword arguments:
         category -- The name of the category
         domain -- Optional. A string that identifies a categorization taxonomy.
         """
@@ -126,12 +142,15 @@ class Category(Serializable):
 
 
 class Cloud(Serializable):
-    """ A Cloud object specifies a web service that supports the rssCloud interface which can be implemented in HTTP-POST, XML-RPC or SOAP 1.1.
+    """
+    A Cloud object specifies a web service that supports the rssCloud interface which can be implemented
+    in HTTP-POST, XML-RPC or SOAP 1.1.
     More information at http://cyber.law.harvard.edu/rss/rss.html#ltcloudgtSubelementOfLtchannelgt
     """
 
     def __init__(self, domain, port, path, registerProcedure, protocol):
-        """ Keyword arguments:
+        """
+        Keyword arguments:
         domain -- The domain name or IP address of the cloud.
         port -- TCP port that the cloud is running on.
         path -- The location of its responder.
@@ -161,18 +180,22 @@ class Cloud(Serializable):
 
 
 class Image(Serializable):
-    """ An Image object specifies a GIF, JPEG or PNG image that can be displayed with the channel.
+    """
+    An Image object specifies a GIF, JPEG or PNG image that can be displayed with the channel.
     More information at http://cyber.law.harvard.edu/rss/rss.html#ltimagegtSubelementOfLtchannelgt
     """
 
     def __init__(self, url, title, link, width=None, height=None, description=None):
-        """ Keyword arguments:
+        """
+        Keyword arguments:
         url -- The URL of the image that represents the channel.
-        title -- Describes the image. It's used in the ALT attribute of the HTML <img> tag when the channel is rendered in HTML.
+        title -- Describes the image. It's used in the ALT attribute of the HTML <img> tag when the channel is
+        rendered in HTML.
         link -- The URL of the site. When the channel is rendered the image is a link to the site.
         width -- Optional. The width of the image in pixels.
         height -- Optional. The height of the image in pixels.
-        description -- Optional. Contains text that is included in the TITLE attribute of the link formed around the image in the HTML rendering.
+        description -- Optional. Contains text that is included in the TITLE attribute of the link formed around
+        the image in the HTML rendering.
         """
 
         Serializable.__init__(self)
@@ -203,12 +226,14 @@ class Image(Serializable):
 
 
 class TextInput(Serializable):
-    """ A TextInput object specifies a text input box that can be displayed with the channel.
+    """
+    A TextInput object specifies a text input box that can be displayed with the channel.
     More information at http://cyber.law.harvard.edu/rss/rss.html#lttextinputgtSubelementOfLtchannelgt
     """
 
     def __init__(self, title, description, name, link):
-        """ Keyword arguments:
+        """
+        Keyword arguments:
         title -- The label of the submit button in the text input area.
         description -- Explains the text input area.
         name -- The name of the text object in the text input area.
@@ -240,12 +265,14 @@ class TextInput(Serializable):
 
 
 class SkipHours(Serializable):
-    """ A SkipHours object is a hint for aggregators telling them which hours they can skip.
+    """
+    A SkipHours object is a hint for aggregators telling them which hours they can skip.
     More information at http://cyber.law.harvard.edu/rss/skipHoursDays.html#skiphours
     """
 
     def __init__(self, hours):
-        """ Keyword arguments:
+        """
+        Keyword arguments:
         hours -- A list containing up to 24 values between 0 and 23, representing a time in GMT.
         """
 
@@ -268,13 +295,15 @@ class SkipHours(Serializable):
 
 
 class SkipDays(Serializable):
-    """ A SkipDays object is a hint for aggregators telling them which days they can skip.
+    """
+    A SkipDays object is a hint for aggregators telling them which days they can skip.
     More information at http://cyber.law.harvard.edu/rss/skipHoursDays.html#skipdays
     """
 
     def __init__(self, days):
         """ Keyword arguments:
-        days -- A list containing up to 7 values. Possible values are Monday, Tuesday, Wednesday, Thursday, Friday, Saturday or Sunday.
+        days -- A list containing up to 7 values. Possible values are Monday, Tuesday, Wednesday, Thursday,
+        Friday, Saturday or Sunday.
         """
 
         Serializable.__init__(self)
@@ -296,16 +325,19 @@ class SkipDays(Serializable):
 
 
 class Enclosure(Serializable):
-    """ An Enclosure object describes a media object that is attached to the item.
+    """
+    An Enclosure object describes a media object that is attached to the item.
     More information at http://cyber.law.harvard.edu/rss/rss.html#ltenclosuregtSubelementOfLtitemgt
     """
 
     def __init__(self, url, length, type):
-        """ Keyword arguments:
+        """
+        Keyword arguments:
         url -- Indicates where the enclosure is located.
         length -- Specifies how big the enclosure is in bytes.
         type -- Specifies the standard MIME type of the enclosure.
         """
+
         Serializable.__init__(self)
 
         if url is None: raise ElementRequiredError("url")
@@ -323,15 +355,19 @@ class Enclosure(Serializable):
 
 
 class Guid(Serializable):
-    """ A Guid object represents a string that uniquely identifies the item.
+    """
+    A Guid object represents a string that uniquely identifies the item.
     More information at http://cyber.law.harvard.edu/rss/rss.html#ltguidgtSubelementOfLtitemgt
     """
 
     def __init__(self, guid, isPermaLink=True):
-        """ Keyword arguments:
-        guid -- This is a string that uniquely identifies the item. When present, an aggregator may choose to use this string to determine if an item is new.
+        """
+        Keyword arguments:
+        guid -- This is a string that uniquely identifies the item. When present, an aggregator may choose to use
+        this string to determine if an item is new.
         isPermaLink -- Indicates whether the guid is a url that points to the item.
         """
+
         Serializable.__init__(self)
 
         if guid is None: raise ElementRequiredError("guid")
@@ -346,15 +382,18 @@ class Guid(Serializable):
 
 
 class Source(Serializable):
-    """ A Source object represents the RSS channel that the item came from.
+    """
+    A Source object represents the RSS channel that the item came from.
     More information at http://cyber.law.harvard.edu/rss/rss.html#ltsourcegtSubelementOfLtitemgt
     """
 
     def __init__(self, name, url):
-        """ Keyword arguments:
+        """
+        Keyword arguments:
         name -- The name of the RSS channel that the item came from.
         url -- Links to the XMLization of the source.
         """
+
         Serializable.__init__(self)
 
         if name is None: raise ElementRequiredError("name")
@@ -370,15 +409,19 @@ class Source(Serializable):
 
 
 class iTunesOwner(Serializable):
-    """ An iTunesOwner object contains contact information for the owner of the podcast intended to be used for administrative communication.
+    """
+    An iTunesOwner object contains contact information for the owner of the podcast intended to be used
+    for administrative communication.
     More information at https://www.apple.com/itunes/podcasts/specs.html#owner
     """
 
     def __init__(self, name, email):
-        """ Keyword arguments
+        """
+        Keyword arguments
         name -- The name of the owner.
         email -- The email address of the owner.
         """
+
         Serializable.__init__(self)
 
         if name is None: raise ElementRequiredError("name")
@@ -397,15 +440,18 @@ class iTunesOwner(Serializable):
 
 
 class iTunesCategory(Serializable):
-    """ An iTunesCategory object specified the browsing category of the feed.
+    """
+    An iTunesCategory object specified the browsing category of the feed.
     More information at https://www.apple.com/itunes/podcasts/specs.html#category
     """
 
     def __init__(self, name, subcategory=None):
-        """ Keyword arguments
+        """
+        Keyword arguments
         name -- The name of the category
         subcategory -- Optional. The name of the subcategory.
         """
+
         Serializable.__init__(self)
 
         if name is None: raise ElementRequiredError("name")
@@ -425,14 +471,15 @@ class iTunesCategory(Serializable):
 
 
 class iTunes(Extension):
-    """ Extension for iTunes metatags.
+    """
+    Extension for iTunes metatags.
     More information at https://www.apple.com/itunes/podcasts/specs.html
     """
 
-    def __init__(self, author=None, block=None, categories=None, image=None, explicit=None, complete=None, owner=None,
-                 subtitle=None,
-                 summary=None, new_feed_url=None):
-        """ Keyword arguments:
+    def __init__(self, author=None, block=None, categories=None, image=None,
+                 explicit=None, complete=None, owner=None, subtitle=None, summary=None, new_feed_url=None):
+        """
+        Keyword arguments:
         author -- The author of the podcast. Visible under podcast title and in iTunes Store Browse.
         block -- Whether the podcast should appear in the iTunes Store podcast directory.
         categories -- The browsing categories for this podcast.
@@ -444,6 +491,7 @@ class iTunes(Extension):
         summary -- An extended summary of the podcast.
         new_feed_url -- When changing the podcast RSS URL, this is the new URL where the podcast is located.
         """
+
         Extension.__init__(self)
 
         self.author = author
@@ -497,7 +545,8 @@ class iTunes(Extension):
 
 
 class iTunesItem(Serializable):
-    """ Extension for iTunes Item metatags.
+    """
+    Extension for iTunes Item metatags.
     More information at https://www.apple.com/itunes/podcasts/specs.html
     """
 
@@ -514,6 +563,7 @@ class iTunesItem(Serializable):
         subtitle -- A few words that represent the description of the episode.
         summary -- An extended summary of the episode.
         """
+
         Serializable.__init__(self)
 
         self.author = author
@@ -553,8 +603,11 @@ class iTunesItem(Serializable):
 
 
 class Item(Host):
-    """ An Item object may represent a "story" - much like a story in a newspaper or magazine; if so its description is a synopsis of the story, and the link points to the full story.
-    An item may also be complete in itself, if so, the description contains the text, and the link and title may be omitted. All elements of an item are optional, however at least one
+    """
+    An Item object may represent a "story" - much like a story in a newspaper or magazine; if so its description
+    is a synopsis of the story, and the link points to the full story.
+    An item may also be complete in itself, if so, the description contains the text, and the link and title may
+    be omitted. All elements of an item are optional, however at least one
     of title or description must be present.
     More information at http://cyber.law.harvard.edu/rss/rss.html#hrelementsOfLtitemgt
     """
@@ -562,7 +615,8 @@ class Item(Host):
     def __init__(self, title=None, link=None, description=None, author=None,
                  creator=None, categories=None, comments=None, enclosure=None,
                  guid=None, pubDate=None, source=None, extensions=None):
-        """ Keyword arguments:
+        """
+        Keyword arguments:
         title -- Optional. The title of the item.
         link  -- Optional. The URL of the item.
         description -- Optional. The item synopsis.
@@ -639,7 +693,8 @@ class Feed(Host):
                  lastBuildDate=None, categories=None, generator=None, docs=None, cloud=None, ttl=None, image=None,
                  rating=None,
                  textInput=None, skipHours=None, skipDays=None, items=None, extensions=None):
-        """ Keyword arguments:
+        """
+        Keyword arguments:
         title -- The name of the channel.
         link -- The URL to the HTML website corresponding to the channel.
         description -- Phrase or sentence describing the channel.
@@ -647,13 +702,17 @@ class Feed(Host):
         copyright -- Optional. Copyright notice for content in the channel.
         managingEditor -- Optional. Email address for person responsible for editorial content.
         webMaster -- Optional. Email address for person responsible for technical issues relating to channel.
-        pubDate -- Optional. The publication date for the content in the channel. This should be a datetime in GMT format.
-        lastBuildDate -- Optional. The last time the content of the channel changed. This should be a datetime in GMT format.
+        pubDate -- Optional. The publication date for the content in the channel.
+        This should be a datetime in GMT format.
+        lastBuildDate -- Optional. The last time the content of the channel changed.
+        This should be a datetime in GMT format.
         categories -- Optional. Specify one or more categories that the channel belongs to.
         generator -- Optional. A string indicating the program used to generate the channel.
         docs -- Optional. A URL that points to the documentation for the format used in the RSS file.
-        cloud -- Optional. Allows processes to register with a cloud to be notified of updates to the channel. This is a Cloud object.
-        ttl -- Optional. The number of minutes that indicates how long a channel can be cached before refreshing from the source. This should be an integer value.
+        cloud -- Optional. Allows processes to register with a cloud to be notified of updates to the channel. This
+        is a Cloud object.
+        ttl -- Optional. The number of minutes that indicates how long a channel can be cached before refreshing
+        from the source. This should be an integer value.
         image -- Optional. Specifies an image that can be displayed with the channel. This is an Image object.
         rating -- Optional. The PICS rating for the channel. See http://www.w3.org/PICS/.
         textInput -- Optional. Specifies a text input box that can be displayed with the channel.
