@@ -70,7 +70,9 @@ class Serializable:
             date.year,
             date.hour, date.minute, date.second)
 
-    def _write_element(self, name, value, attributes={}):
+    def _write_element(self, name, value, attributes=None):
+        if attributes is None:
+            attributes = {}
         if value is not None or attributes != {}:
             self.handler.startElement(name, attributes)
 
@@ -96,7 +98,8 @@ class Extension(Serializable):
 
 
 class Host(Serializable):
-    """ Represents an object that can be host to other extensions.
+    """
+    Represents an object that can be host to other extensions.
     """
 
     def __init__(self, extensions=None):
@@ -316,7 +319,8 @@ class SkipDays(Serializable):
     """
 
     def __init__(self, days):
-        """ Keyword arguments:
+        """
+        Keyword arguments:
         days -- A list containing up to 7 values. Possible values are Monday, Tuesday, Wednesday, Thursday,
         Friday, Saturday or Sunday.
         """
@@ -577,7 +581,8 @@ class iTunesItem(Serializable):
 
     def __init__(self, author=None, block=None, image=None, duration=None, explicit=None, is_closed_captioned=None,
                  order=None, subtitle=None, summary=None):
-        """ Keyword arguments:
+        """
+        Keyword arguments:
         author -- The author of the episode.
         block -- Whether the episode should appear in the iTunes Store podcast directory.
         image -- The URL of the artwork of your podcast.
