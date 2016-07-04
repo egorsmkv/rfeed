@@ -42,7 +42,8 @@ class Serializable:
 
         self.handler = handler
 
-    def _date(self, date):
+    @staticmethod
+    def _date(date):
         """
         Converts a datetime into an RFC 2822 formatted date.
         Returns None if None is provided as an argument.
